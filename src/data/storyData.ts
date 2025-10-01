@@ -623,7 +623,7 @@ export const storyScenes: Scene[] = [
       },
       {
         name: "Bạn 1",
-        dialogue: "Mình hiểu cậu rồi, đôi khi im lặng là cách t���t nhất để cảm nhận bản thân."
+        dialogue: "Mình hiểu cậu rồi, đôi khi im lặng là cách tốt nhất để cảm nhận bản thân."
       }
     ],
     choices: [

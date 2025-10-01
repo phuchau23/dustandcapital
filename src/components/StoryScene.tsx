@@ -150,16 +150,16 @@ export function StoryScene({ scene, onChoice, onNext, previousChoices = [] }: St
     if (name === "AI") return "text-purple-400";
     if (name.includes("Thầy")) return "text-green-400";
     if (name === "Narrator") return "text-yellow-400";
-    return "text-gray-400";
+    return "text-gray-700";
   };
 
-  const getCharacterBgColor = (name: string) => {
-    if (name === "Nam") return "from-blue-500/20 to-blue-600/20";
-    if (name === "A") return "from-cyan-500/20 to-cyan-600/20"; // Keep for backwards compatibility
-    if (name === "AI") return "from-purple-500/20 to-purple-600/20";
-    if (name.includes("Thầy")) return "from-green-500/20 to-green-600/20";
-    if (name === "Narrator") return "from-yellow-500/20 to-yellow-600/20";
-    return "from-gray-500/20 to-gray-600/20";
+  const getCharacterBgColor = (name: string) => { 
+    if (name === "Nam") return "bg-gray-100";
+    if (name === "A") return "bg-gray-100"; // Keep for backwards compatibility
+    if (name === "AI") return "bg-gray-100";
+    if (name.includes("Thầy")) return "bg-gray-100";
+    if (name === "Narrator") return "bg-gray-100";
+    return "bg-gray-100";
   };
 
   return (
