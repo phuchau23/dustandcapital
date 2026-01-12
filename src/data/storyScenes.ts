@@ -29,7 +29,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q1",
     title: "Q1 — Tin từ quê",
-    bg: "/bg/ep0_prologue.jpg",
+    bg: "/ep0_prologue.jpg",
     text: "Một đêm, bạn nhận tin: bố ở quê bị tai biến nhẹ. Không chết — nhưng từ nay gia đình cần tiền thuốc, và bạn là người gánh chính. Tâm thế của bạn là:",
     choices: [
       { id: "Q1_A", label: "“Mình phải giàu nhanh để cứu nhà”", delta: { S: -1, T: -1 } },
@@ -40,7 +40,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q2",
     title: "Q2 — Cách “mở game”",
-    bg: "/bg/ep0_prologue.jpg",
+    bg: "/ep0_prologue.jpg",
     text: "Bạn chọn cách bắt đầu (tài chính & rủi ro):",
     choices: [
       { id: "Q2_A", label: "Nghỉ việc, all-in startup", delta: { V: -1, S: -1, M: +1 } },
@@ -56,7 +56,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q3",
     title: "Q3 — Bạn định nghĩa “thành công”",
-    bg: "/bg/ep0_prologue.jpg",
+    bg: "/ep0_prologue.jpg",
     text: "Với bạn, “thành công” nghĩa là gì?",
     choices: [
       { id: "Q3_A", label: "Có tiền càng nhanh càng tốt", delta: { T: -1 } },
@@ -71,7 +71,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q4",
     title: "Q4 — Chọn lĩnh vực / mô hình",
-    bg: "/bg/ep1_foundation.jpg",
+    bg: "/ep1_foundation.jpg",
     text: "Bạn chọn lĩnh vực dựa trên:",
     choices: [
       {
@@ -92,7 +92,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q5",
     title: "Q5 — Mặt bằng / setup",
-    bg: "/bg/ep1_foundation.jpg",
+    bg: "/ep1_foundation.jpg",
     text: "Bạn thuê mặt bằng/địa điểm:",
     choices: [
       { id: "Q5_A", label: "Chỗ đẹp nhất, giá cao (tin “đắc địa sẽ thắng”)", delta: { V: -2, T: -1 } },
@@ -103,7 +103,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q6",
     title: "Q6 — Đồng đội",
-    bg: "/bg/ep1_foundation.jpg",
+    bg: "/ep1_foundation.jpg",
     text: "Một người bạn thân rủ làm chung (vốn ít nhưng chịu làm). Bạn:",
     choices: [
       { id: "Q6_A", label: "Chia 50/50 vì tình nghĩa", delta: { M: +1, U: -1, T: -1 } },
@@ -114,7 +114,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q7",
     title: "Q7 — Tuyển team ban đầu",
-    bg: "/bg/ep1_foundation.jpg",
+    bg: "/ep1_foundation.jpg",
     text: "Bạn tuyển team ban đầu:",
     choices: [
       { id: "Q7_A", label: "Tuyển nhanh cho đủ người (không thử việc)", delta: { U: -1, T: -1 } },
@@ -129,7 +129,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q8",
     title: "Q8 — 2 tuần đầu khách ít",
-    bg: "/bg/ep2_market.jpg",
+    bg: "/ep2_market.jpg",
     text: "2 tuần đầu khách ít. Bạn làm marketing:",
     choices: [
       { id: "Q8_A", label: "Đốt ads mạnh để “bật doanh số”", delta: { V: -2, T: -1 } },
@@ -140,7 +140,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q9",
     title: "Q9 — Review đầu tiên chê “giá cao”",
-    bg: "/bg/ep2_market.jpg",
+    bg: "/ep2_market.jpg",
     text: "Review đầu tiên chê “giá cao”. Bạn:",
     choices: [
       { id: "Q9_A", label: "Cãi lại trên mạng", delta: { U: -2, S: -1 } },
@@ -151,7 +151,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q10",
     title: "Q10 — Bạn nhận ra khách mua vì “tiện”",
-    bg: "/bg/ep2_market.jpg",
+    bg: "/ep2_market.jpg",
     text: "Bạn phát hiện khách mua vì “tiện”, không phải vì “đam mê món”. Bạn:",
     choices: [
       { id: "Q10_A", label: "Giữ concept vì đó là bản sắc", delta: { T: -1 } },
@@ -167,7 +167,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q11",
     title: "Q11 — Sau 2 tháng doanh thu vẫn thấp",
-    bg: "/bg/ep2_market.jpg",
+    bg: "/ep2_market.jpg",
     text: "Sau 2 tháng, doanh thu vẫn thấp. Bạn quyết định:",
     choices: [
       { id: "Q11_A", label: "“Cứ đốt tiền rồi sẽ tới”", delta: { V: -2, T: -1 } },
@@ -187,7 +187,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q12",
     title: "Q12 — Nhân viên xin ứng lương",
-    bg: "/bg/ep3_people.jpg",
+    bg: "/ep3_people.jpg",
     text: "Nhân viên Hà (22t) xin ứng lương vì mẹ bệnh. Bạn:",
     choices: [
       { id: "Q12_A", label: "Không ứng, “startup phải kỷ luật”", delta: { V: +1, U: -1, M: -1 } },
@@ -200,7 +200,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q13",
     title: "Q13 — “Tối ưu sổ sách” (tiền nhanh)",
-    bg: "/bg/ep3_people.jpg",
+    bg: "/ep3_people.jpg",
     text: "Người cho “tiền nhanh” gợi ý bạn “tối ưu sổ sách” để giảm chi phí thuế.",
     isAvailable: (s) => s.flags.ShadowMoney === true,
     choices: [
@@ -212,7 +212,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q13_ALT",
     title: "Q13 — “Lách” từ người trong ngành",
-    bg: "/bg/ep3_people.jpg",
+    bg: "/ep3_people.jpg",
     text: "Bạn nhận đề nghị “lách” từ một người khác trong ngành để giảm chi phí thuế.",
     isAvailable: (s) => s.flags.ShadowMoney === false,
     choices: [
@@ -225,7 +225,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q14",
     title: "Q14 — Mua đánh giá 5 sao?",
-    bg: "/bg/ep3_people.jpg",
+    bg: "/ep3_people.jpg",
     text: "Một đối tác đề nghị “mua đánh giá 5 sao”. Bạn:",
     choices: [
       { id: "Q14_A", label: "Mua luôn để tăng uy tín nhanh", delta: { U: -2, V: -1, T: -1 } },
@@ -236,7 +236,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q15",
     title: "Q15 — Team mâu thuẫn vì áp lực",
-    bg: "/bg/ep3_people.jpg",
+    bg: "/ep3_people.jpg",
     text: "Team bắt đầu mâu thuẫn vì áp lực. Bạn xử lý:",
     choices: [
       { id: "Q15_A", label: "Đổ lỗi và sa thải người yếu", delta: { U: -2, M: -1, S: -1 } },
@@ -251,7 +251,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q16",
     title: "Q16 — Sốc phí nền tảng + nguyên liệu tăng",
-    bg: "/bg/ep4_shock.jpg",
+    bg: "/ep4_shock.jpg",
     text: "Phí nền tảng giao đồ ăn tăng + giá nguyên liệu tăng. Bạn:",
     choices: [
       {
@@ -272,7 +272,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q17",
     title: "Q17 — Bố cần thủ tục điều trị gấp",
-    bg: "/bg/ep4_shock.jpg",
+    bg: "/ep4_shock.jpg",
     text: "Gia đình báo: bố cần thủ tục khám/điều trị gấp trong 10 ngày. Đúng lúc đó bạn có deal quan trọng với đối tác. Bạn:",
     choices: [
       {
@@ -288,7 +288,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q18",
     title: "Q18 — Runway còn ~ 6 tuần",
-    bg: "/bg/ep4_shock.jpg",
+    bg: "/ep4_shock.jpg",
     text: "Dòng tiền còn runway ~ 6 tuần. Bạn chọn:",
     choices: [
       { id: "Q18_A", label: "Vay nóng để kéo dài", delta: { V: +2, U: -1, S: -1 } },
@@ -303,7 +303,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q19",
     title: "Q19 — Deal của Khang",
-    bg: "/bg/ep5_deal.jpg",
+    bg: "/ep5_deal.jpg",
     text: "Nhà đầu tư Khang đề nghị rót 2 tỷ đổi 45% và quyền can thiệp vận hành. Khang “gợi ý” cắt chi phí nhân sự theo cách “linh hoạt”. Bạn:",
     choices: [
       {
@@ -326,7 +326,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q20_DIRTY",
     title: "Q20 — Khang ép cắt lương / tăng ca",
-    bg: "/bg/ep5_deal.jpg",
+    bg: "/ep5_deal.jpg",
     text: "Bạn chọn deal bẩn. Khang yêu cầu cắt lương/ép tăng ca. Bạn:",
     isAvailable: (s) => s.flags.KhangDealAccepted === true && s.flags.KhangDealType === "DIRTY",
     choices: [
@@ -343,7 +343,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q20_MILESTONE",
     title: "Q20 — Khang đòi KPI",
-    bg: "/bg/ep5_deal.jpg",
+    bg: "/ep5_deal.jpg",
     text: "Bạn chọn deal milestone. Khang muốn bạn chứng minh KPI. Bạn:",
     isAvailable: (s) => s.flags.KhangDealAccepted === true && s.flags.KhangDealType === "MILESTONE",
     choices: [
@@ -356,7 +356,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q21",
     title: "Q21 — Cú gọi từ quê",
-    bg: "/bg/ep5_deal.jpg",
+    bg: "/ep5_deal.jpg",
     text: "Một “cú gọi” từ quê: bố cần thêm chi phí phát sinh. Công ty thì đang đúng giai đoạn sống còn. Bạn:",
     choices: [
       {
@@ -376,7 +376,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q22",
     title: "Q22 — Chiến lược 60 ngày cuối",
-    bg: "/bg/ep6_verdict.jpg",
+    bg: "/ep6_verdict.jpg",
     text: "Bạn phải chọn chiến lược 60 ngày cuối:",
     choices: [
       { id: "Q22_A", label: "Bơm marketing mạnh, hy vọng “bùng nổ”", delta: { V: -2, T: -1 } },
@@ -387,7 +387,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q23",
     title: "Q23 — Khủng hoảng truyền thông",
-    bg: "/bg/ep6_verdict.jpg",
+    bg: "/ep6_verdict.jpg",
     text: "Một khủng hoảng truyền thông nổ ra (review/đồn đoán về chất lượng hoặc nhân sự). Bạn:",
     choices: [
       { id: "Q23_A", label: "Phớt lờ, “rồi hết”", delta: { U: -2, T: -1 } },
@@ -402,7 +402,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q24",
     title: "Q24 — Bạn ra quyết định dựa trên",
-    bg: "/bg/ep6_verdict.jpg",
+    bg: "/ep6_verdict.jpg",
     text: "Bạn ra quyết định dựa trên:",
     choices: [
       { id: "Q24_A", label: "Trực giác & niềm tin cá nhân", delta: { T: -1 } },
@@ -413,7 +413,7 @@ export const storyScenes: Scene[] = [
   {
     id: "Q25",
     title: "Q25 — Ngã rẽ cuối",
-    bg: "/bg/ep6_verdict.jpg",
+    bg: "/ep6_verdict.jpg",
     text: "Bạn phát hiện mô hình hiện tại chỉ sống được nếu “đi đường tắt” (bẩn) hoặc bạn phải chấp nhận giảm tốc để làm sạch và bền. Bạn chọn:",
     choices: [
       {
@@ -448,63 +448,63 @@ export const endingScenesByKey: Record<EndingKey, Scene> = {
   GOOD_1: {
     id: "END_GOOD_1",
     title: "✅ GOOD — Doanh nghiệp sống, con người sống",
-    bg: "/bg/end_good.jpg",
+    bg: "/end_good.jpg",
     text: "Bạn không giàu nhanh, nhưng công ty có nền thật. Đội ngũ ở lại. Khách quay lại vì tin. Bạn hiểu: thực tiễn không thưởng cho người mơ đẹp — nó thưởng cho người làm đúng.",
     choices: [],
   },
   GOOD_2: {
     id: "END_GOOD_2",
     title: "✅ GOOD — Deal sạch, lớn lên trong kỷ luật",
-    bg: "/bg/end_good2.jpg",
+    bg: "/end_good2.jpg",
     text: "Bạn nhận vốn nhưng không bán linh hồn. KPI thật. Kỷ luật thật. Tăng trưởng chậm mà chắc — và bạn vẫn ngủ ngon.",
     choices: [],
   },
   NEUTRAL: {
     id: "END_NEUTRAL",
     title: "⚖️ NEUTRAL — Tồn tại, nhưng không bứt phá",
-    bg: "/bg/end_neutral.jpg",
+    bg: "/end_neutral.jpg",
     text: "Startup thành business nhỏ. Bạn sống được. Nhưng giấc mơ “đổi đời nhanh” biến mất. Bạn trưởng thành: tự do luôn có cái giá, và cái giá thường là… thời gian.",
     choices: [],
   },
   BITTERSWEET: {
     id: "END_BITTERSWEET",
     title: "🌧️ BITTERSWEET — Cứu gia đình, mất giấc mơ",
-    bg: "/bg/end_bittersweet.jpg",
+    bg: "/end_bittersweet.jpg",
     text: "Bạn đóng mô hình, về quê lo nhà. Không phải “xui” — mà vì nguồn lực vật chất có hạn. Bạn mất một giấc mơ, nhưng giữ được người thân và giữ được mình.",
     choices: [],
   },
   BAD_A: {
     id: "END_BAD_A",
     title: "❌ BAD — Duy ý chí: cố gắng sai cách",
-    bg: "/bg/end_bad_a.jpg",
+    bg: "/end_bad_a.jpg",
     text: "Bạn kiệt sức. Sai lầm lặp lại. Bạn gọi đó là “không may”, nhưng thực ra bạn đã không tôn trọng quy luật khách quan. Thực tiễn không ghét bạn — nó chỉ lạnh lùng.",
     choices: [],
   },
   BAD_B: {
     id: "END_BAD_B",
     title: "❌ BAD — Thành công bẩn (ngắn hạn)",
-    bg: "/bg/end_bad_b.jpg",
+    bg: "/end_bad_b.jpg",
     text: "Tiền vào. Số liệu đẹp. Nhưng đội ngũ sợ bạn, khách không tin bạn. Bạn thắng một ván — và thua phần người.",
     choices: [],
   },
   BAD_C: {
     id: "END_BAD_C",
     title: "☠️ BAD — Scandal sập tiệm",
-    bg: "/bg/end_bad_c.jpg",
+    bg: "/end_bad_c.jpg",
     text: "Bài phốt lan nhanh hơn ads. Đối tác rút, nhân sự bỏ, bạn không kịp trở tay. Khi uy tín vỡ, vốn không cứu được bạn nữa.",
     choices: [],
   },
   BAD_D: {
     id: "END_BAD_D",
     title: "🕳️ BAD — Nợ & vòng xoáy tiền nóng",
-    bg: "/bg/end_bad_d.jpg",
+    bg: "/end_bad_d.jpg",
     text: "Bạn sống bằng hôm nay, trả bằng ngày mai. Mọi quyết định bị bóp nghẹt bởi lãi và thời hạn. Không còn chiến lược — chỉ còn phản xạ.",
     choices: [],
   },
   REDEMPTION: {
     id: "END_REDEMPTION",
     title: "🕯️ REDEMPTION — Thua ván này, thắng ván sau",
-    bg: "/bg/end_redemption.jpg",
+    bg: "/end_redemption.jpg",
     text: "Bạn dừng đúng lúc để không phá nát mọi thứ. Vài năm sau, bạn quay lại — lần này đi bằng nền thật. Không còn cần phép màu, vì bạn đã có phương pháp.",
     choices: [],
   },
