@@ -1,188 +1,199 @@
 import { motion } from "motion/react";
 import { Badge } from "./ui/badge";
 import { Card, CardContent } from "./ui/card";
+import React from "react";
+
+type Scores = { V: number; U: number; S: number; M: number; T: number };
+type Flags = {
+  ShadowMoney: boolean;
+  TrendChase: boolean;
+  TestFirst: boolean;
+  EthicsBreak: boolean;
+  Pivot: boolean;
+  CutQuality: boolean;
+  FamilyFirst: boolean;
+  KhangDealAccepted: boolean;
+  KhangDealType?: "DIRTY" | "MILESTONE";
+};
+
+type EndingKey = "GOOD_1" | "GOOD_2" | "NEUTRAL" | "BITTERSWEET" | "BAD_A" | "BAD_B" | "BAD_C" | "BAD_D" | "REDEMPTION";
 
 interface EndingSummaryProps {
-  choicePercentages: number[];
-  endingType: string;
-  finalPercentage: number;
+  scores: Scores;
+  flags: Flags;
+  endingKey: EndingKey;
+  endingTitle: string; // text bạn hiển thị (VD: "✅ GOOD — Doanh nghiệp sống, con người sống")
 }
 
-export function EndingSummary({ choicePercentages, endingType, finalPercentage }: EndingSummaryProps) {
-  const getEndingDescription = (type: string) => {
-    switch (type) {
-      case "Khép kín":
+export function EndingSummary({ scores, flags, endingKey, endingTitle }: EndingSummaryProps) {
+  const getEndingMeta = (key: EndingKey) => {
+    switch (key) {
+      case "GOOD_1":
         return {
-          description: "Nam đã chọn sự an toàn của thế giới ảo, nhưng có thể đã bỏ lỡ những trải nghiệm thật sự quý giá.",
-          color: "from-red-400 to-pink-500",
-          bgColor: "from-red-500/20 to-pink-500/20",
-          icon: "🌙"
+          icon: "🌟",
+          color: "from-cyan-300 to-blue-300",
+          bg: "from-cyan-500/20 to-blue-500/20",
+          description:
+            "Bạn thắng bằng thực tiễn: đo, thử, tối ưu, giữ chữ tín. Không giàu nhanh, nhưng bền — và ngủ ngon.",
         };
-      case "Ảo tưởng sụp đổ":
+      case "GOOD_2":
         return {
-          description: "Hành trình của Nam đầy thử thách, nhưng những thất bại cũng là bài học quý giá về tính chân thật.",
-          color: "from-orange-400 to-red-500",
-          bgColor: "from-orange-500/20 to-red-500/20",
-          icon: "⚡"
+          icon: "🤝",
+          color: "from-blue-300 to-teal-300",
+          bg: "from-blue-500/20 to-teal-500/20",
+          description: "Bạn nhận vốn nhưng không bán linh hồn. KPI thật, kỷ luật thật. Tăng trưởng chậm mà chắc.",
         };
-      case "Hạt mầm nhỏ":
+      case "NEUTRAL":
         return {
-          description: "Nam đã bắt đầu hiểu được giá trị của sự kết nối thật sự, dù còn nhiều điều cần khám phá.",
-          color: "from-cyan-400 to-blue-500",
-          bgColor: "from-cyan-500/20 to-blue-500/20",
-          icon: "🌱"
+          icon: "⚖️",
+          color: "from-gray-300 to-slate-300",
+          bg: "from-gray-500/20 to-slate-500/20",
+          description: "Bạn sống được, nhưng không bứt phá. Một kết quả “ổn”, đổi lại là giấc mơ đổi đời nhanh tan đi.",
         };
-      case "Cộng đồng thật sự":
+      case "BITTERSWEET":
         return {
-          description: "Nam đã tìm thấy sự cân bằng hoàn hảo giữa thế giới số và hiện thực, xây dựng những mối quan hệ ý nghĩa.",
-          color: "from-blue-400 to-cyan-500",
-          bgColor: "from-blue-500/20 to-cyan-500/20",
-          icon: "🌟"
+          icon: "🌧️",
+          color: "from-rose-300 to-orange-300",
+          bg: "from-rose-500/20 to-orange-500/20",
+          description: "Bạn ưu tiên gia đình. Bạn mất một giấc mơ, nhưng giữ được người thân và giữ được mình.",
         };
+      case "BAD_A":
+        return {
+          icon: "🥀",
+          color: "from-red-300 to-pink-300",
+          bg: "from-red-500/20 to-pink-500/20",
+          description: "Duy ý chí + làm sai cách → kiệt sức. Thực tiễn không ghét bạn, chỉ lạnh lùng với sai lầm.",
+        };
+      case "BAD_B":
+        return {
+          icon: "🕶️",
+          color: "from-amber-300 to-red-300",
+          bg: "from-amber-500/20 to-red-500/20",
+          description: "Số liệu đẹp, tiền vào — nhưng uy tín vỡ. Bạn thắng ngắn hạn và thua phần người.",
+        };
+      case "BAD_C":
+        return {
+          icon: "☠️",
+          color: "from-red-300 to-gray-300",
+          bg: "from-red-500/20 to-gray-500/20",
+          description: "Khủng hoảng truyền thông + xử lý tệ → sập tiệm. Khi uy tín rơi về đáy, vốn không cứu được nữa.",
+        };
+      case "BAD_D":
+        return {
+          icon: "🕳️",
+          color: "from-slate-300 to-zinc-300",
+          bg: "from-slate-500/20 to-zinc-500/20",
+          description:
+            "Tiền nóng kéo dài runway, nhưng kéo bạn vào vòng xoáy nợ. Mọi quyết định bị bóp nghẹt bởi lãi và hạn.",
+        };
+      case "REDEMPTION":
       default:
         return {
-          description: "Một hành trình đặc biệt của riêng bạn.",
-          color: "from-gray-400 to-gray-500",
-          bgColor: "from-gray-500/20 to-gray-500/20",
-          icon: "✨"
+          icon: "🕯️",
+          color: "from-teal-300 to-cyan-300",
+          bg: "from-teal-500/20 to-cyan-500/20",
+          description: "Bạn dừng đúng lúc để bảo toàn. Thua ván này — nhưng bạn còn cơ hội thắng ván sau.",
         };
     }
   };
 
-  const endingInfo = getEndingDescription(endingType);
-  const totalChoices = choicePercentages.length;
+  const meta = getEndingMeta(endingKey);
+
+  const scoreItems = [
+    { k: "VỐN", v: scores.V },
+    { k: "UY TÍN", v: scores.U },
+    { k: "SỨC", v: scores.S },
+    { k: "MẠNG", v: scores.M },
+    { k: "THỰC", v: scores.T },
+  ];
+
+  const flagBadges = [
+    flags.ShadowMoney ? "ShadowMoney" : null,
+    flags.TrendChase ? "TrendChase" : null,
+    flags.TestFirst ? "TestFirst" : null,
+    flags.EthicsBreak ? "EthicsBreak" : null,
+    flags.Pivot ? "Pivot" : null,
+    flags.CutQuality ? "CutQuality" : null,
+    flags.FamilyFirst ? "FamilyFirst" : null,
+    flags.KhangDealAccepted ? `KhangDeal(${flags.KhangDealType ?? "?"})` : null,
+  ].filter(Boolean) as string[];
 
   return (
     <motion.div
       className="space-y-6"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, delay: 0.5 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
     >
-      {/* Ending Summary Header */}
+      {/* Header */}
       <motion.div
         className="text-center"
-        initial={{ scale: 0.8 }}
+        initial={{ scale: 0.9 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 0.8, type: "spring" }}
+        transition={{ duration: 0.6 }}
       >
         <motion.div
-          className={`inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r ${endingInfo.bgColor} border border-white/20 backdrop-blur-sm`}
+          className={`inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r ${meta.bg} border border-white/20 backdrop-blur-sm`}
           animate={{
             boxShadow: [
-              "0 0 20px rgba(255, 255, 255, 0.1)",
-              "0 0 30px rgba(255, 255, 255, 0.2)",
-              "0 0 20px rgba(255, 255, 255, 0.1)",
-            ]
+              "0 0 18px rgba(255, 255, 255, 0.08)",
+              "0 0 28px rgba(255, 255, 255, 0.16)",
+              "0 0 18px rgba(255, 255, 255, 0.08)",
+            ],
           }}
           transition={{ duration: 3, repeat: Infinity }}
         >
-          <span className="text-2xl">{endingInfo.icon}</span>
-          <span className={`text-xl font-bold bg-gradient-to-r ${endingInfo.color} bg-clip-text text-transparent`}>
-            {endingType}
+          <span className="text-2xl">{meta.icon}</span>
+          <span className={`text-xl font-bold bg-gradient-to-r ${meta.color} bg-clip-text text-transparent`}>
+            {endingTitle}
           </span>
-          <Badge variant="outline" className="bg-white/10 text-white border-white/30">
-            {Math.round(finalPercentage)}%
-          </Badge>
         </motion.div>
       </motion.div>
 
-      {/* Ending Description */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1 }}
-      >
-        <Card className="bg-gradient-to-r from-white/10 to-white/5 border-white/20 backdrop-blur-sm">
-          <CardContent className="p-6 text-center">
-            <p className="text-white/90 text-lg leading-relaxed italic">
-              "{endingInfo.description}"
-            </p>
-          </CardContent>
-        </Card>
-      </motion.div>
+      {/* Description */}
+      <Card className="bg-gradient-to-r from-white/10 to-white/5 border-white/20 backdrop-blur-sm">
+        <CardContent className="p-6 text-center">
+          <p className="text-white/90 text-lg leading-relaxed italic">"{meta.description}"</p>
+        </CardContent>
+      </Card>
 
-      {/* Journey Statistics */}
+      {/* Scores */}
       <motion.div
-        className="grid grid-cols-2 md:grid-cols-4 gap-4"
-        initial={{ opacity: 0, y: 20 }}
+        className="grid grid-cols-2 md:grid-cols-5 gap-3"
+        initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1.5 }}
+        transition={{ duration: 0.7, delay: 0.3 }}
       >
-        <motion.div
-          className="text-center"
-          whileHover={{ scale: 1.05 }}
-        >
-          <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg p-4 border border-white/10 backdrop-blur-sm">
-            <div className="text-2xl font-bold text-white">{totalChoices}</div>
-            <div className="text-white/70 text-sm">Lựa chọn</div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="text-center"
-          whileHover={{ scale: 1.05 }}
-        >
-          <div className="bg-gradient-to-r from-pink-500/20 to-orange-500/20 rounded-lg p-4 border border-white/10 backdrop-blur-sm">
-            <div className="text-2xl font-bold text-white">16</div>
-            <div className="text-white/70 text-sm">Cảnh</div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="text-center"
-          whileHover={{ scale: 1.05 }}
-        >
-          <div className="bg-gradient-to-r from-rose-500/20 to-pink-500/20 rounded-lg p-4 border border-white/10 backdrop-blur-sm">
-            <div className="text-2xl font-bold text-white">
-              {choicePercentages.filter(choice => choice >= 75).length}
+        {scoreItems.map((it) => (
+          <div key={it.k} className="text-center">
+            <div className="bg-white/10 rounded-lg p-3 border border-white/10 backdrop-blur-sm">
+              <div className="text-2xl font-bold text-white">{it.v}</div>
+              <div className="text-white/70 text-xs">{it.k}</div>
             </div>
-            <div className="text-white/70 text-sm">Lựa chọn dũng cảm</div>
           </div>
-        </motion.div>
-
-        <motion.div
-          className="text-center"
-          whileHover={{ scale: 1.05 }}
-        >
-          <div className="bg-gradient-to-r from-orange-500/20 to-rose-500/20 rounded-lg p-4 border border-white/10 backdrop-blur-sm">
-            <div className="text-2xl font-bold text-white">
-              {Math.round((choicePercentages.reduce((sum, choice) => sum + choice, 0) / choicePercentages.length) || 0)}%
-            </div>
-            <div className="text-white/70 text-sm">Điểm trung bình</div>
-          </div>
-        </motion.div>
+        ))}
       </motion.div>
 
-      {/* Choice Journey Visualization */}
+      {/* Flags */}
       <motion.div
-        className="space-y-3"
+        className="space-y-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 2 }}
+        transition={{ duration: 0.7, delay: 0.45 }}
       >
-        <h3 className="text-white/90 text-lg font-medium text-center mb-4">
-          🛤️ Hành trình lựa chọn của bạn
-        </h3>
+        <h3 className="text-white/90 text-base font-medium text-center">🏷️ Dấu vết quyết định</h3>
         <div className="flex flex-wrap justify-center gap-2">
-          {choicePercentages.map((choice, index) => (
-            <motion.div
-              key={index}
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.3, delay: 2 + (index * 0.1) }}
-              className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${
-                choice <= 25 ? "bg-red-400/80 text-red-900" :
-                choice <= 50 ? "bg-orange-400/80 text-orange-900" :
-                choice <= 75 ? "bg-pink-400/80 text-pink-900" :
-                "bg-rose-400/80 text-rose-900"
-              }`}
-              whileHover={{ scale: 1.2 }}
-              title={`Lựa chọn ${index + 1}: ${Math.round(choice)}%`}
-            >
-              {index + 1}
-            </motion.div>
-          ))}
+          {flagBadges.length === 0 ? (
+            <Badge variant="outline" className="bg-white/10 text-white border-white/20">
+              Không có cờ đặc biệt
+            </Badge>
+          ) : (
+            flagBadges.map((f) => (
+              <Badge key={f} variant="outline" className="bg-white/10 text-white border-white/20">
+                {f}
+              </Badge>
+            ))
+          )}
         </div>
       </motion.div>
     </motion.div>
