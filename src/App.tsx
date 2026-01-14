@@ -46,7 +46,16 @@ const applyDelta = (scores: Scores, delta: Partial<Scores>): Scores => ({
   T: clamp01to10(scores.T + (delta.T ?? 0)),
 });
 
-type EndingKey = "GOOD_1" | "GOOD_2" | "NEUTRAL" | "BITTERSWEET" | "BAD_A" | "BAD_B" | "BAD_C" | "BAD_D" | "REDEMPTION";
+type EndingKey =
+  | "GOOD_1"
+  | "GOOD_2"
+  | "NEUTRAL"
+  | "BITTERSWEET"
+  | "BAD_A"
+  | "BAD_B"
+  | "BAD_C"
+  | "BAD_D"
+  | "REDEMPTION";
 
 function computeEnding(state: GameState): EndingKey {
   const { V, U, S, M, T } = state.scores;
@@ -57,7 +66,8 @@ function computeEnding(state: GameState): EndingKey {
 
   // BAD D — debt spiral (nếu bạn muốn flag vay nóng thì thêm flag DebtSpiral ở data)
   // tạm suy luận: nếu ShadowMoney + V rất thấp + M thấp => nợ/đuối
-  if (V <= 1 && M <= 3 && (F.ShadowMoney || F.KhangDealAccepted)) return "BAD_D";
+  if (V <= 1 && M <= 3 && (F.ShadowMoney || F.KhangDealAccepted))
+    return "BAD_D";
 
   // BAD B — thành công bẩn
   if (F.EthicsBreak && V >= 7 && U <= 4) return "BAD_B";
@@ -68,22 +78,36 @@ function computeEnding(state: GameState): EndingKey {
 
   // REDEMPTION — dừng cuộc chơi đúng lúc (gợi ý: set flag RedemptionStop ở Q25-C)
   // Ở đây mình dùng heuristic: nếu T>=7 & U>=6 & V>=1 & answeredCount=25 & không EthicsBreak
-  if (!F.EthicsBreak && T >= 7 && U >= 6 && V >= 1 && state.history.some((h) => h.choiceId === "Q25_C"))
+  if (
+    !F.EthicsBreak &&
+    T >= 7 &&
+    U >= 6 &&
+    V >= 1 &&
+    state.history.some((h) => h.choiceId === "Q25_C")
+  )
     return "REDEMPTION";
 
   // GOOD 2 — deal sạch milestone
-  if (F.KhangDealAccepted && F.KhangDealType === "MILESTONE" && T >= 8 && U >= 7 && !F.EthicsBreak) {
+  if (
+    F.KhangDealAccepted &&
+    F.KhangDealType === "MILESTONE" &&
+    T >= 8 &&
+    U >= 7 &&
+    !F.EthicsBreak
+  ) {
     return "GOOD_2";
   }
 
   // GOOD 1 — doanh nghiệp sống, con người sống
-  if (T >= 8 && U >= 7 && V >= 4 && S >= 4 && !F.EthicsBreak && F.Pivot) return "GOOD_1";
+  if (T >= 8 && U >= 7 && V >= 4 && S >= 4 && !F.EthicsBreak && F.Pivot)
+    return "GOOD_1";
 
   // BITTERSWEET — cứu gia đình, mất giấc mơ
   if (F.FamilyFirst && T >= 7 && V <= 3) return "BITTERSWEET";
 
   // NEUTRAL — tồn tại
-  if (T >= 5 && T <= 7 && U >= 5 && U <= 7 && V >= 4 && V <= 6 && S >= 3) return "NEUTRAL";
+  if (T >= 5 && T <= 7 && U >= 5 && U <= 7 && V >= 4 && V <= 6 && S >= 3)
+    return "NEUTRAL";
 
   // fallback
   return "NEUTRAL";
@@ -137,7 +161,11 @@ export default function App() {
   const endingKey = useMemo(() => computeEnding(state), [state]);
   const endingTypeLabel = getEndingTypeName(endingKey);
 
-  const findNextAvailableIndex = (fromIndex: number, nextIndex: number, s: GameState) => {
+  const findNextAvailableIndex = (
+    fromIndex: number,
+    nextIndex: number,
+    s: GameState
+  ) => {
     let i = nextIndex;
     while (i < storyScenes.length) {
       const scene = storyScenes[i];
@@ -150,7 +178,11 @@ export default function App() {
 
   const nextScene = (nextState: GameState) => {
     const proposed = currentSceneIndex + 1;
-    const nextIdx = findNextAvailableIndex(currentSceneIndex, proposed, nextState);
+    const nextIdx = findNextAvailableIndex(
+      currentSceneIndex,
+      proposed,
+      nextState
+    );
 
     if (nextIdx < storyScenes.length) {
       setCurrentSceneIndex(nextIdx);
@@ -159,7 +191,12 @@ export default function App() {
     }
   };
 
-  const handleChoice = (choiceId: string, delta: Partial<Scores>, flagPatch?: Partial<Flags>, note?: string) => {
+  const handleChoice = (
+    choiceId: string,
+    delta: Partial<Scores>,
+    flagPatch?: Partial<Flags>,
+    note?: string
+  ) => {
     setState((prev) => {
       const mergedFlags: Flags = { ...prev.flags, ...(flagPatch ?? {}) };
       const newScores = applyDelta(prev.scores, delta);
@@ -233,50 +270,124 @@ export default function App() {
   if (!gameStarted) {
     return (
       <motion.div
-        className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 flex items-center justify-center p-4"
+        className="min-h-screen relative overflow-hidden text-slate-50 flex items-center justify-center px-4 py-10"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 0.6 }}
+        style={{
+          background:
+            "radial-gradient(900px circle at 15% 18%, rgba(124,58,237,0.35), transparent 55%), radial-gradient(700px circle at 82% 22%, rgba(34,211,238,0.22), transparent 55%), radial-gradient(900px circle at 55% 110%, rgba(16,185,129,0.18), transparent 60%), linear-gradient(180deg, #05060f 0%, #070a16 55%, #04040a 100%)",
+        }}
       >
-        <motion.div
-          initial={{ scale: 0.8, y: 50, opacity: 0 }}
-          animate={{ scale: 1, y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
-        >
-          <Card className="max-w-2xl w-full bg-white/95 backdrop-blur-sm border-2 border-blue-200 shadow-2xl">
-            <CardHeader className="text-center space-y-4">
-              <motion.div
-                className="mx-auto w-20 h-20 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full flex items-center justify-center"
-                animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.05, 1] }}
-                transition={{ duration: 3, repeat: Infinity, repeatType: "reverse" }}
-              >
-                <BookOpen className="w-10 h-10 text-white" />
-              </motion.div>
+        {/* Ambient glow blobs */}
+        <div className="pointer-events-none absolute -top-40 -left-40 h-[520px] w-[520px] rounded-full blur-3xl opacity-40 bg-violet-600/40" />
+        <div className="pointer-events-none absolute -bottom-48 -right-48 h-[620px] w-[620px] rounded-full blur-3xl opacity-30 bg-cyan-500/35" />
+        <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[780px] w-[780px] rounded-full blur-3xl opacity-15 bg-emerald-400/30" />
 
-              <CardTitle className="text-3xl bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
-                Bụi & Vốn 💸
+        {/* Subtle grid */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.10]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(255,255,255,0.35) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.35) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
+
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/55" />
+
+        <motion.div
+          className="relative z-10 w-full max-w-3xl"
+          initial={{ y: 22, scale: 0.97, opacity: 0 }}
+          animate={{ y: 0, scale: 1, opacity: 1 }}
+          transition={{ duration: 0.55, type: "spring", bounce: 0.2 }}
+        >
+          <Card
+            className="rounded-3xl shadow-2xl border"
+            style={{
+              background: "rgba(2, 6, 23, 0.56)",
+              borderColor: "rgba(255,255,255,0.12)",
+              backdropFilter: "blur(14px)",
+            }}
+          >
+            <CardHeader className="text-center space-y-5 py-8">
+              <div className="mx-auto w-fit rounded-2xl border border-white/10 bg-white/5 px-4 py-3 shadow-lg">
+                <div
+                  className="mx-auto w-16 h-16 rounded-2xl flex items-center justify-center"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, rgba(124,58,237,1) 0%, rgba(34,211,238,0.95) 55%, rgba(16,185,129,0.85) 100%)",
+                  }}
+                >
+                  <BookOpen className="w-8 h-8 text-white" />
+                </div>
+              </div>
+
+              <CardTitle className="flex flex-col items-center gap-2 text-4xl tracking-tight leading-tight">
+                <span className="text-white text-5xl font-semibold tracking-tight">
+                  Quiz Game
+                </span>
+                <span className="bg-gradient-to-r text-5xl font-bold from-violet-200 via-cyan-200 to-emerald-200 bg-clip-text text-white pt-6">
+                  Bụi & Vốn
+                </span>
               </CardTitle>
 
-              <motion.p className="text-gray-600 text-lg">
-                Khởi nghiệp – đầu tư – đạo đức – hệ quả: bạn tạo ra giá trị, hay bị chính lựa chọn nuốt chửng?
-              </motion.p>
+              <p className="text-white/80 text-base md:text-xl leading-relaxed max-w-2xl mx-auto">
+                Ra quyết định như một founder: tăng trưởng, đạo đức, và hệ quả.
+                Mỗi lựa chọn sẽ “trả giá” vào điểm số và dẫn tới kết cục khác
+                nhau.
+              </p>
+
+              {/* Feature chips */}
+              <div className="flex flex-wrap items-center justify-center gap-2 pt-6">
+                {[
+                  "25 câu – nhiều nhánh",
+                  "Kết thúc theo điểm + cờ",
+                  "Hiệu ứng cinematic",
+                  "Replay nhanh",
+                ].map((t) => (
+                  <div
+                    key={t}
+                    className="px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-medium text-white/80"
+                  >
+                    {t}
+                  </div>
+                ))}
+              </div>
             </CardHeader>
 
-            <CardContent className="space-y-6">
-              <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-lg p-4">
-                <p className="text-sm text-gray-700">
-                  <strong className="text-blue-600">🎮 Cơ chế:</strong> Mỗi lựa chọn ảnh hưởng 5 chỉ số{" "}
-                  <strong>V/U/S/M/T</strong> và <strong>Flags</strong>. Kết cục phụ thuộc vào tổ hợp điểm + cờ.
+            <CardContent className="space-y-6 pb-8">
+              <div
+                className="rounded-2xl p-4 border"
+                style={{
+                  background: "rgba(255, 255, 255, 0.06)",
+                  borderColor: "rgba(255,255,255,0.12)",
+                }}
+              >
+                <p className="text-sm text-white leading-relaxed">
+                  <strong className="text-cyan-200">Luật chơi:</strong> Chọn
+                  phương án → cập nhật <strong>V/U/S/M/T</strong> và{" "}
+                  <strong>Flags</strong>. Bạn càng “tham”, độ rủi ro càng cao.
                 </p>
               </div>
 
-              <Button
-                onClick={() => setGameStarted(true)}
-                className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white shadow-lg"
-                size="lg"
+              <motion.div
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                transition={{ type: "spring", stiffness: 320, damping: 22 }}
               >
-                ✨ Bắt đầu câu chuyện ✨
-              </Button>
+                <Button
+                  onClick={() => setGameStarted(true)}
+                  className="w-full h-12 text-base font-semibold rounded-2xl shadow-xl"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, rgba(124,58,237,1) 0%, rgba(34,211,238,0.95) 60%, rgba(16,185,129,0.85) 100%)",
+                    color: "white",
+                  }}
+                >
+                  Bắt đầu chơi
+                </Button>
+              </motion.div>
             </CardContent>
           </Card>
         </motion.div>
@@ -297,22 +408,30 @@ export default function App() {
             exit={{ y: -50, opacity: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <motion.div className="bg-white/85 backdrop-blur-md rounded-lg p-4 max-w-3xl border border-blue-200 shadow-lg">
+            <motion.div className="bg-slate-950/55 backdrop-blur-md rounded-2xl p-4 max-w-4xl border border-white/10 shadow-2xl">
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="text-gray-800 text-sm font-medium">
-                  Scene {currentSceneIndex + 1}/{storyScenes.length} • Đã chọn: {state.answeredCount}/25
+                <div className="text-white/80 text-sm font-medium">
+                  Scene {currentSceneIndex + 1}/{storyScenes.length} • Đã chọn:{" "}
+                  {state.answeredCount}/25
                 </div>
 
-                <div className="px-3 py-1 rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 border border-blue-300">
-                  <span className="text-blue-800 text-xs font-medium">→ {endingTypeLabel}</span>
+                <div className="px-3 py-1 rounded-full bg-gradient-to-r from-violet-400/15 via-cyan-400/15 to-emerald-400/15 border border-white/10">
+                  <span className="text-white/90 text-xs font-medium">
+                    → {endingTypeLabel}
+                  </span>
                 </div>
               </div>
 
               <div className="mt-3 grid grid-cols-5 gap-2 text-xs">
                 {(["V", "U", "S", "M", "T"] as const).map((k) => (
-                  <div key={k} className="rounded-md border border-blue-100 bg-white/70 p-2">
-                    <div className="text-gray-500">{k}</div>
-                    <div className="text-gray-900 font-semibold">{state.scores[k]}/10</div>
+                  <div
+                    key={k}
+                    className="rounded-xl border border-white/10 bg-white/5 p-2"
+                  >
+                    <div className="text-white/70">{k}</div>
+                    <div className="text-white font-semibold">
+                      {state.scores[k]}/10
+                    </div>
                   </div>
                 ))}
               </div>
@@ -334,7 +453,10 @@ export default function App() {
             <EndingEffects endingType={endingTypeLabel} />
 
             <div className="relative z-10 flex-1">
-              <StoryScene scene={endingScenesByKey[endingKey]} previousChoices={state.history} />
+              <StoryScene
+                scene={endingScenesByKey[endingKey]}
+                previousChoices={state.history}
+              />
             </div>
 
             <motion.div
@@ -342,9 +464,16 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 1.2 }}
-              style={{ background: "rgba(0,0,0,0.7)", backdropFilter: "blur(10px)" }}
+              style={{
+                background: "rgba(0,0,0,0.7)",
+                backdropFilter: "blur(10px)",
+              }}
             >
-              <motion.div className="max-w-4xl w-full" initial={{ scale: 0.8, y: 50 }} animate={{ scale: 1, y: 0 }}>
+              <motion.div
+                className="max-w-4xl w-full"
+                initial={{ scale: 0.8, y: 50 }}
+                animate={{ scale: 1, y: 0 }}
+              >
                 <EndingSummary
                   scores={state.scores}
                   flags={state.flags}
@@ -357,7 +486,7 @@ export default function App() {
             <motion.div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 flex gap-4">
               <Button
                 onClick={startNewGame}
-                className="gap-2 shadow-xl px-6 py-3 text-white bg-gradient-to-r from-blue-500 to-cyan-500"
+                className="gap-2 shadow-xl px-6 py-3 text-white bg-gradient-to-r from-violet-500 via-cyan-500 to-emerald-500"
                 size="lg"
               >
                 <RotateCcw className="w-5 h-5" />
@@ -367,7 +496,7 @@ export default function App() {
               <Button
                 onClick={resetStory}
                 variant="outline"
-                className="gap-2 shadow-xl px-6 py-3 bg-white/20 border-white/40 text-white hover:bg-white/30"
+                className="gap-2 shadow-xl px-6 py-3 bg-white/10 border-white/20 text-white hover:bg-white/15"
                 size="lg"
               >
                 <Home className="w-5 h-5" />
@@ -391,7 +520,14 @@ export default function App() {
                 delta: Partial<Scores>;
                 flags?: Partial<Flags>;
                 note?: string;
-              }) => handleChoice(payload.choiceId, payload.delta, payload.flags, payload.note)}
+              }) =>
+                handleChoice(
+                  payload.choiceId,
+                  payload.delta,
+                  payload.flags,
+                  payload.note
+                )
+              }
             />
           </motion.div>
         )}
