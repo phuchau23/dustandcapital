@@ -160,7 +160,13 @@ export function StoryScene({ scene, onChoice }: StorySceneProps) {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
       >
-        {scene.bg && <ImageWithFallback src={scene.bg} alt={scene.title} className="w-full h-full object-cover" />}
+        {scene.bg && (
+          <ImageWithFallback
+            src={scene.bg}
+            alt={scene.title}
+            className="w-full h-full object-cover"
+          />
+        )}
 
         <motion.div
           className={`absolute inset-0 ${
@@ -221,17 +227,26 @@ export function StoryScene({ scene, onChoice }: StorySceneProps) {
                 >
                   <div className="flex items-center gap-2 mb-3">
                     <motion.div
-                      className={`w-3 h-3 rounded-full ${getDotColor(currentCharacter.name)}`}
+                      className={`w-3 h-3 rounded-full ${getDotColor(
+                        currentCharacter.name
+                      )}`}
                       animate={{ scale: [1, 1.15, 1] }}
                       transition={{ duration: 1.8, repeat: Infinity }}
                     />
                     <div className="px-3 py-1 rounded-full bg-white/10 border border-white/10">
-                      <span className={`font-medium ${getCharacterColor(currentCharacter.name)} text-base`}>
+                      <span
+                        className={`font-medium ${getCharacterColor(
+                          currentCharacter.name
+                        )} text-base`}
+                      >
                         {currentCharacter.name}
                       </span>
                     </div>
                     {currentCharacter.emotion && (
-                      <Badge variant="outline" className="text-xs bg-white/10 text-white border-white/25">
+                      <Badge
+                        variant="outline"
+                        className="text-xs bg-white/10 text-white border-white/25"
+                      >
                         {currentCharacter.emotion}
                       </Badge>
                     )}
@@ -266,7 +281,9 @@ export function StoryScene({ scene, onChoice }: StorySceneProps) {
                   size="sm"
                   className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white shadow-lg"
                 >
-                  {currentDialogueIndex < validCharacters.length - 1 ? "Tiếp tục" : "Chọn đáp án"}
+                  {currentDialogueIndex < validCharacters.length - 1
+                    ? "Tiếp tục"
+                    : "Chọn đáp án"}
                 </Button>
               </div>
             )}
@@ -280,7 +297,9 @@ export function StoryScene({ scene, onChoice }: StorySceneProps) {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4 }}
                 >
-                  <p className="text-white font-medium text-center mb-3 text-lg">🤔 Bạn sẽ chọn gì?</p>
+                  <p className="text-white font-medium text-center mb-3 text-lg">
+                    🤔 Bạn sẽ chọn gì?
+                  </p>
 
                   <div className="grid gap-3">
                     {scene.choices.map((choice, index) => (
@@ -306,7 +325,9 @@ export function StoryScene({ scene, onChoice }: StorySceneProps) {
                         >
                           <div className="flex items-start gap-2">
                             <div className="w-1.5 h-1.5 mt-2 rounded-full bg-white/60" />
-                            <div className="text-sm leading-relaxed">{choice.label}</div>
+                            <div className="text-sm leading-relaxed">
+                              {choice.label}
+                            </div>
                           </div>
                         </Button>
                       </motion.div>

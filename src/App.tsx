@@ -366,8 +366,11 @@ export default function App() {
               >
                 <p className="text-sm text-white leading-relaxed">
                   <strong className="text-cyan-200">Luật chơi:</strong> Chọn
-                  phương án → cập nhật <strong>V/U/S/M/T</strong> và{" "}
-                  <strong>Flags</strong>. Bạn càng “tham”, độ rủi ro càng cao.
+                  phương án → cập nhật <strong>V</strong> (Vốn),{" "}
+                  <strong>U</strong> (Uy tín), <strong>S</strong> (Sức khỏe tinh
+                  thần), <strong>M</strong> (Quan hệ), <strong>T</strong> (Mức
+                  độ thực tế) và <strong>Flags</strong>. Bạn càng “tham”, độ rủi
+                  ro càng cao.
                 </p>
               </div>
 
@@ -408,7 +411,7 @@ export default function App() {
             exit={{ y: -50, opacity: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <motion.div className="bg-slate-950/55 backdrop-blur-md rounded-2xl p-4 max-w-4xl border border-white/10 shadow-2xl">
+            <motion.div className="w-full max-w-4xl mx-auto bg-slate-950/55 backdrop-blur-md rounded-2xl p-4 border border-white/10 shadow-2xl">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div className="text-white/80 text-sm font-medium">
                   Scene {currentSceneIndex + 1}/{storyScenes.length} • Đã chọn:{" "}
@@ -423,14 +426,24 @@ export default function App() {
               </div>
 
               <div className="mt-3 grid grid-cols-5 gap-2 text-xs">
-                {(["V", "U", "S", "M", "T"] as const).map((k) => (
+                {(
+                  [
+                    { key: "V", label: "Vốn" },
+                    { key: "U", label: "Uy tín" },
+                    { key: "S", label: "Sức khỏe tinh thần" },
+                    { key: "M", label: "Quan hệ" },
+                    { key: "T", label: "Mức độ thực tế" },
+                  ] as const
+                ).map((it) => (
                   <div
-                    key={k}
+                    key={it.key}
                     className="rounded-xl border border-white/10 bg-white/5 p-2"
                   >
-                    <div className="text-white/70">{k}</div>
+                    <div className="text-white/70">
+                      {it.key} • {it.label}
+                    </div>
                     <div className="text-white font-semibold">
-                      {state.scores[k]}/10
+                      {state.scores[it.key]}/10
                     </div>
                   </div>
                 ))}
